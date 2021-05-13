@@ -1,0 +1,6 @@
+com\ppsdisplayprova2\view\VisualizadorView.class
+com\ppsdisplayprova2\application\Principal.class
+com\ppsdisplayprova2\model\Imagem.class
+com\ppsdisplayprova2\presenter\VisualizadorPresenter.class
+com\ppsdisplayprova2\model\RealImagem.class
+com\ppsdisplayprova2\model\ProxyImagem.class
