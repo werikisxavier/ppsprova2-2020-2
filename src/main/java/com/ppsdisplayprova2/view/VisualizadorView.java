@@ -8,7 +8,6 @@ package com.ppsdisplayprova2.view;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 
 public class VisualizadorView extends javax.swing.JFrame {
