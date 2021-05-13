@@ -1,12 +1,14 @@
 package com.ppsdisplayprova2.presenter;
 
-import com.ppsdisplayprova2.enums.OrigemEnum;
+import com.ppsdisplayprova2.enums.OperacaoEnum;
 import com.ppsdisplayprova2.model.proxy.ProxyImagem;
 import com.ppsdisplayprova2.view.VisualizadorView;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -18,7 +20,6 @@ public class VisualizadorPresenter {
 
     private VisualizadorView view;
     private ArrayList<ProxyImagem> imagens;
-    private int location;
 
     private VisualizadorPresenter() {
         this.view = new VisualizadorView();
@@ -26,10 +27,7 @@ public class VisualizadorPresenter {
         imagens = new ArrayList<>();
         this.view.setTitle("Visualizador de imagens");
         carregarImagens();
-        exibirImagens(imagens);
-        carregarScrollPane();
         iniciarListeners();
-
     }
 
     public static synchronized VisualizadorPresenter getInstance() {
@@ -39,10 +37,10 @@ public class VisualizadorPresenter {
         return instance;
     }
 
-    public void exibirImagens(ArrayList<ProxyImagem> imagens) {
-        location = 20;
+    public void exibirMiniImagens(ArrayList<ProxyImagem> imagens) throws Exception {
+        int location = 20;
         for (ProxyImagem imagem : imagens) {
-            ImageIcon img = new ImageIcon(imagem.getNomeArquivo());
+            ImageIcon img =new ImageIcon(imagem.getNomeArquivo());
             img.setImage(img.getImage().getScaledInstance(130, 110, 1));
             img.setDescription(imagem.getNomeArquivo());
             JButton button = new JButton();
@@ -62,8 +60,8 @@ public class VisualizadorPresenter {
         );
 
         scrollPane.setBounds(710, 150, 220, 400);
-        view.getJpanelImagens().setBounds(0, 0, 120, 860);
-        view.getJpanelImagens().setPreferredSize(new Dimension(183, 860));
+        view.getJpanelImagens().setBounds(0, 0, 120, 900);
+        view.getJpanelImagens().setPreferredSize(new Dimension(183, 900));
         view.getContentPane().add(scrollPane);
     }
 
@@ -98,11 +96,19 @@ public class VisualizadorPresenter {
     }
 
     private void carregarImagens() {
-        imagens.add(new ProxyImagem("Imagem1_10Mb.jpg", OrigemEnum.LOCAL));
-        imagens.add(new ProxyImagem("Imagem2_10Mb.jpg", OrigemEnum.LOCAL));
-        imagens.add(new ProxyImagem("Imagem3_10Mb.jpg", OrigemEnum.LOCAL));
-        imagens.add(new ProxyImagem("Imagem4_10Mb.jpg", OrigemEnum.LOCAL));
-        imagens.add(new ProxyImagem("Imagem5_10Mb.jpg", OrigemEnum.LOCAL));
+        try {
+        imagens.add(new ProxyImagem("Imagem1_10Mb.jpg", OperacaoEnum.LOCAL));
+        imagens.add(new ProxyImagem("Imagem2_10Mb.jpg", OperacaoEnum.LOCAL));
+        imagens.add(new ProxyImagem("Imagem3_10Mb.jpg", OperacaoEnum.LOCAL));
+        imagens.add(new ProxyImagem("Imagem4_10Mb.jpg", OperacaoEnum.LOCAL));
+        imagens.add(new ProxyImagem("Imagem5_10Mb.jpg", OperacaoEnum.LOCAL));
+        
+        exibirMiniImagens(imagens);
+        carregarScrollPane();
+        
+         } catch (Exception ex) {
+            Logger.getLogger(VisualizadorPresenter.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void iniciarListeners() {
@@ -115,8 +121,12 @@ public class VisualizadorPresenter {
                     if (!link.contains(".png") && !link.contains(".jpg")) {
                         JOptionPane.showMessageDialog(view, "Error: Link inválido, digite um link .png ou .jpg!");
                     } else {
-                        imagens.add(new ProxyImagem(link, OrigemEnum.WEB));
-                        exibirImagens(imagens);
+                        try {
+                        imagens.add(new ProxyImagem(link, OperacaoEnum.WEB));
+                       exibirMiniImagens(imagens);
+                        } catch (Exception ex) {
+                            Logger.getLogger(VisualizadorPresenter.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
 

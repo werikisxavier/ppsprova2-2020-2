@@ -1,6 +1,6 @@
 package com.ppsdisplayprova2.model.proxy;
 
-import com.ppsdisplayprova2.enums.OrigemEnum;
+import com.ppsdisplayprova2.enums.OperacaoEnum;
 import com.ppsdisplayprova2.model.Imagem;
 import com.ppsdisplayprova2.presenter.VisualizadorPresenter;
 import java.net.URL;
@@ -12,9 +12,9 @@ class RealImagem implements Imagem {
     private final String nomeArquivo;
     private ImageIcon imagem;
 
-    public RealImagem(String nomeArquivo, OrigemEnum origemImagem) throws Exception {
+    public RealImagem(String nomeArquivo, OperacaoEnum origemImagem) throws Exception {
         this.nomeArquivo = nomeArquivo;
-        verificarOrigem(origemImagem);
+        verificarOperacao(origemImagem);
     }
 
     @Override
@@ -37,8 +37,8 @@ class RealImagem implements Imagem {
         this.imagem.setImage(this.imagem.getImage().getScaledInstance(width, height, 1));
     }
 
-    private void verificarOrigem(OrigemEnum origemImagem) throws Exception {
-        if (origemImagem == OrigemEnum.LOCAL) {
+    private void verificarOperacao(OperacaoEnum operacao) throws Exception {
+        if (operacao == OperacaoEnum.LOCAL) {
             carregarDoDisco(nomeArquivo);
         } else {
             carregarDaInternet(nomeArquivo);

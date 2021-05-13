@@ -2,6 +2,6 @@
 package com.ppsdisplayprova2.enums;
 
 
-public enum OrigemEnum {
+public enum OperacaoEnum {
     LOCAL, WEB;
 }
