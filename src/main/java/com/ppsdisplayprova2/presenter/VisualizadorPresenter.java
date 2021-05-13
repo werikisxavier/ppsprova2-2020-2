@@ -18,6 +18,7 @@ public class VisualizadorPresenter {
 
     private VisualizadorView view;
     private ArrayList<ProxyImagem> imagens;
+    private int location;
 
     private VisualizadorPresenter() {
         this.view = new VisualizadorView();
@@ -39,9 +40,8 @@ public class VisualizadorPresenter {
     }
 
     public void exibirImagens(ArrayList<ProxyImagem> imagens) {
-        int location = 20;
+        location = 20;
         for (ProxyImagem imagem : imagens) {
-
             ImageIcon img = new ImageIcon(imagem.getNomeArquivo());
             img.setImage(img.getImage().getScaledInstance(130, 110, 1));
             img.setDescription(imagem.getNomeArquivo());
@@ -52,7 +52,6 @@ public class VisualizadorPresenter {
             criarListener(button);
             this.view.getJpanelImagens().add(button);
             location += 125;
-            System.out.println(location);
         }
     }
 
@@ -63,7 +62,7 @@ public class VisualizadorPresenter {
         );
 
         scrollPane.setBounds(710, 150, 220, 400);
-        view.getJpanelImagens().setBounds(0, 0, 183, 860);
+        view.getJpanelImagens().setBounds(0, 0, 120, 860);
         view.getJpanelImagens().setPreferredSize(new Dimension(183, 860));
         view.getContentPane().add(scrollPane);
     }
@@ -94,7 +93,6 @@ public class VisualizadorPresenter {
         this.view.getLabelImagem().setIcon(imagem);
     }
 
-
     public VisualizadorView getView() {
         return view;
     }
@@ -111,15 +109,17 @@ public class VisualizadorPresenter {
         this.view.getBtInserirLink().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    String link = JOptionPane.showInputDialog(view, "Digite o link da imagem desejada:");
+                String link = JOptionPane.showInputDialog(view, "Digite o link da imagem desejada:");
+
+                if (link != null) {
                     if (!link.contains(".png") && !link.contains(".jpg")) {
                         JOptionPane.showMessageDialog(view, "Error: Link inválido, digite um link .png ou .jpg!");
                     } else {
                         imagens.add(new ProxyImagem(link, OrigemEnum.WEB));
                         exibirImagens(imagens);
                     }
-                } catch (Exception ex) {}
+                }
+
             }
         });
     }
