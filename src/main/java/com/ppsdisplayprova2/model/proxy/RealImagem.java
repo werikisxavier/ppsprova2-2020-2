@@ -29,7 +29,7 @@ class RealImagem implements Imagem {
         this.imagem.setImage(this.imagem.getImage().getScaledInstance(width, height, 1));
     }
 
-    private void carregarDaInternet(String linkImagem) throws Exception {     
+    private void carregarDaInternet(String linkImagem) throws Exception {
         URL url = new URL(linkImagem);
         this.imagem = new ImageIcon(ImageIO.read(url));
         int width = VisualizadorPresenter.getInstance().getView().getLabelImagem().getWidth();

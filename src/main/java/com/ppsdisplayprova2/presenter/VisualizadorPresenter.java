@@ -7,8 +7,6 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -40,7 +38,7 @@ public class VisualizadorPresenter {
     public void exibirMiniImagens(ArrayList<ProxyImagem> imagens) throws Exception {
         int location = 20;
         for (ProxyImagem imagem : imagens) {
-            ImageIcon img =new ImageIcon(imagem.getNomeArquivo());
+            ImageIcon img = new ImageIcon(imagem.getNomeArquivo());
             img.setImage(img.getImage().getScaledInstance(130, 110, 1));
             img.setDescription(imagem.getNomeArquivo());
             JButton button = new JButton();
@@ -97,17 +95,17 @@ public class VisualizadorPresenter {
 
     private void carregarImagens() {
         try {
-        imagens.add(new ProxyImagem("Imagem1_10Mb.jpg", OperacaoEnum.LOCAL));
-        imagens.add(new ProxyImagem("Imagem2_10Mb.jpg", OperacaoEnum.LOCAL));
-        imagens.add(new ProxyImagem("Imagem3_10Mb.jpg", OperacaoEnum.LOCAL));
-        imagens.add(new ProxyImagem("Imagem4_10Mb.jpg", OperacaoEnum.LOCAL));
-        imagens.add(new ProxyImagem("Imagem5_10Mb.jpg", OperacaoEnum.LOCAL));
-        
-        exibirMiniImagens(imagens);
-        carregarScrollPane();
-        
-         } catch (Exception ex) {
-            Logger.getLogger(VisualizadorPresenter.class.getName()).log(Level.SEVERE, null, ex);
+            imagens.add(new ProxyImagem("Imagem1_10Mb.jpg", OperacaoEnum.LOCAL));
+            imagens.add(new ProxyImagem("Imagem2_10Mb.jpg", OperacaoEnum.LOCAL));
+            imagens.add(new ProxyImagem("Imagem3_10Mb.jpg", OperacaoEnum.LOCAL));
+            imagens.add(new ProxyImagem("Imagem4_10Mb.jpg", OperacaoEnum.LOCAL));
+            imagens.add(new ProxyImagem("Imagem5_10Mb.jpg", OperacaoEnum.LOCAL));
+
+            exibirMiniImagens(imagens);
+            carregarScrollPane();
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(view, "Error ao carregar as imagens!");
         }
     }
 
@@ -122,10 +120,10 @@ public class VisualizadorPresenter {
                         JOptionPane.showMessageDialog(view, "Error: Link inválido, digite um link .png ou .jpg!");
                     } else {
                         try {
-                        imagens.add(new ProxyImagem(link, OperacaoEnum.WEB));
-                       exibirMiniImagens(imagens);
+                            imagens.add(new ProxyImagem(link, OperacaoEnum.WEB));
+                            exibirMiniImagens(imagens);
                         } catch (Exception ex) {
-                            Logger.getLogger(VisualizadorPresenter.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(view, "Error ao carregar as imagens!");
                         }
                     }
                 }
